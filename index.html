@@ -727,22 +727,48 @@ loadMetrics();
 async function submitLead(e){
 e.preventDefault();
 
-const payload={
-name:document.getElementById('name').value,
-phone:document.getElementById('phone').value,
-interest:document.getElementById('msg').value
+const payload = {
+name: document.getElementById('name').value,
+email: document.getElementById('email').value,
+phone: document.getElementById('phone').value,
+interest: document.getElementById('msg').value
 };
 
 try{
-await fetch('/contact',{
+
+const res = await fetch('/contact',{
 method:'POST',
-headers:{'Content-Type':'application/json'},
-body:JSON.stringify(payload)
+headers:{
+'Content-Type':'application/json'
+},
+body: JSON.stringify(payload)
 });
-document.getElementById('status').innerText='Request submitted successfully.';
+
+const data = await res.json();
+
+if(data.success){
+
+document.getElementById('status').innerText =
+'Request submitted successfully.';
+
+document.querySelector("form").reset();
+
 loadMetrics();
+
+}else{
+
+document.getElementById('status').innerText =
+'Submission failed.';
+
+}
+
 }catch(err){
-document.getElementById('status').innerText='Submission failed.';
+
+console.log(err);
+
+document.getElementById('status').innerText =
+'Server error.';
+
 }
 }
 

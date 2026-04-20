@@ -14,22 +14,28 @@ app = FastAPI()
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-flash")
 
+
 class ChatRequest(BaseModel):
     message: str
     user_id: str
+
 
 class ContactRequest(BaseModel):
     name: str
     phone: str
     interest: str
+    email: str | None = None
+
 
 @app.get("/")
 def home():
     return FileResponse("index.html")
 
+
 @app.get("/admin")
 def admin():
     return FileResponse("admin.html")
+
 
 @app.post("/chat")
 def chat(req: ChatRequest):
@@ -41,6 +47,7 @@ Courses, Fees, Placements, Demo classes, Career guidance.
 
 User Message: {req.message}
 """
+
         response = model.generate_content(prompt)
         reply = response.text
 
@@ -55,13 +62,15 @@ User Message: {req.message}
     except Exception as e:
         return {"error": str(e)}
 
+
 @app.post("/contact")
 def contact(req: ContactRequest):
     try:
         lead = {
             "name": req.name,
             "phone": req.phone,
-            "interest": req.interest
+            "interest": req.interest,
+            "email": req.email
         }
 
         inserted = contacts_col.insert_one(lead)
@@ -76,3 +85,18 @@ def contact(req: ContactRequest):
             "success": False,
             "error": str(e)
         }
+
+
+@app.get("/analytics")
+def analytics():
+    return {
+        "contacts": contacts_col.count_documents({}),
+        "messages": chats_col.count_documents({})
+    }
+
+@app.get("/debugcontacts")
+def debugcontacts():
+    docs = list(contacts_col.find({}, {"name":1}).limit(5))
+    for d in docs:
+        d["_id"] = str(d["_id"])
+    return docs
