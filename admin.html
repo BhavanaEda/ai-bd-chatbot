@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+background:#f1f5f9;
+color:#0f172a;
+}
+
+.dashboard{
+padding:35px;
+}
+
+h1{
+margin-bottom:25px;
+font-size:48px;
+font-weight:700;
+}
+
+.metric-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+gap:20px;
+margin-bottom:30px;
+}
+
+.metric-card{
+background:white;
+padding:28px;
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.metric-card h3{
+font-size:44px;
+margin-bottom:10px;
+}
+
+.metric-card p{
+font-size:28px;
+color:#64748b;
+font-weight:600;
+}
+
+.chart-grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
+}
+
+.chart-box{
+background:white;
+padding:25px;
+border-radius:18px;
+box-shadow:0 8px 20px rgba(0,0,0,.05);
+}
+
+.chart-box h2{
+margin-bottom:20px;
+font-size:32px;
+}
+
+@media(max-width:900px){
+.chart-grid{
+grid-template-columns:1fr;
+}
+h1{
+font-size:34px;
+}
+.metric-card h3{
+font-size:34px;
+}
+.metric-card p{
+font-size:22px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<section class="dashboard">
+
+<h1>Business Dashboard</h1>
+
+<div class="metric-grid">
+
+<div class="metric-card">
+<h3 id="contacts">0</h3>
+<p>Total Leads</p>
+</div>
+
+<div class="metric-card">
+<h3 id="messages">0</h3>
+<p>Total Messages</p>
+</div>
+
+<div class="metric-card">
+<h3 id="conversion">78%</h3>
+<p>Lead Conversion</p>
+</div>
+
+<div class="metric-card">
+<h3 id="revenue">₹0</h3>
+<p>Projected Revenue</p>
+</div>
+
+</div>
+
+<div class="chart-grid">
+
+<div class="chart-box">
+<h2>Lead Distribution</h2>
+<canvas id="pieChart"></canvas>
+</div>
+
+<div class="chart-box">
+<h2>Weekly Growth</h2>
+<canvas id="barChart"></canvas>
+</div>
+
+</div>
+
+</section>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

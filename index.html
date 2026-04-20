@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>CampusConnect AI</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,Helvetica,sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+background:#071021;
+color:white;
+overflow-x:hidden;
+}
+
+/* NAVBAR */
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+position:sticky;
+top:0;
+background:rgba(0,0,0,.35);
+backdrop-filter:blur(12px);
+z-index:100;
+}
+
+.logo{
+font-size:28px;
+font-weight:700;
+}
+
+.logo span{
+color:#8b5cf6;
+}
+
+nav ul{
+display:flex;
+gap:25px;
+list-style:none;
+flex-wrap:wrap;
+}
+
+nav a{
+color:white;
+text-decoration:none;
+font-weight:600;
+}
+
+/* BACKGROUND BLOBS */
+.blob{
+position:fixed;
+border-radius:50%;
+filter:blur(80px);
+opacity:.45;
+z-index:-1;
+}
+
+.b1{
+width:280px;
+height:280px;
+background:#7c3aed;
+top:40px;
+left:-60px;
+}
+
+.b2{
+width:340px;
+height:340px;
+background:#2563eb;
+right:-100px;
+top:180px;
+}
+
+.b3{
+width:260px;
+height:260px;
+background:#06b6d4;
+bottom:0;
+left:30%;
+}
+
+/* HERO */
+.hero{
+min-height:90vh;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:40px;
+align-items:center;
+padding:60px;
+}
+
+.hero h1{
+font-size:58px;
+line-height:1.1;
+margin-bottom:20px;
+}
+
+.hero p{
+font-size:18px;
+color:#cbd5e1;
+line-height:1.7;
+margin-bottom:25px;
+}
+
+.btn{
+display:inline-block;
+padding:14px 28px;
+border-radius:12px;
+background:linear-gradient(90deg,#7c3aed,#2563eb);
+color:white;
+text-decoration:none;
+font-weight:700;
+margin-right:12px;
+border:none;
+cursor:pointer;
+transition:.3s;
+}
+
+.btn:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 28px rgba(124,58,237,.35);
+}
+
+.btn2{
+display:inline-block;
+padding:14px 28px;
+border-radius:12px;
+border:1px solid rgba(255,255,255,.2);
+color:white;
+text-decoration:none;
+font-weight:700;
+}
+
+.hero-right{
+display:grid;
+gap:18px;
+}
+
+.glass{
+background:rgba(255,255,255,.06);
+border:1px solid rgba(255,255,255,.08);
+padding:22px;
+border-radius:18px;
+backdrop-filter:blur(10px);
+}
+
+.glass h3{
+margin-bottom:10px;
+color:#8b5cf6;
+}
+
+/* METRICS */
+.metrics{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:18px;
+margin-top:30px;
+}
+
+.metric{
+background:rgba(255,255,255,.06);
+padding:20px;
+border-radius:16px;
+text-align:center;
+}
+
+.metric h2{
+font-size:34px;
+color:#06b6d4;
+}
+
+/* SECTIONS */
+.section{
+padding:80px 60px;
+}
+
+.section h2{
+font-size:42px;
+margin-bottom:16px;
+text-align:center;
+}
+
+.subtitle{
+text-align:center;
+color:#cbd5e1;
+max-width:760px;
+margin:0 auto 40px;
+line-height:1.7;
+}
+
+/* GRID */
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:22px;
+}
+
+.card{
+background:rgba(255,255,255,.06);
+padding:28px;
+border-radius:18px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+}
+
+/* COURSES */
+.course-card{
+background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.04));
+padding:26px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,.08);
+transition:.3s;
+}
+
+.course-card:hover{
+transform:translateY(-6px);
+}
+
+.course-card h3{
+margin-bottom:12px;
+color:#8b5cf6;
+}
+
+.course-card p{
+color:#cbd5e1;
+line-height:1.6;
+margin-bottom:16px;
+}
+
+/* FORM */
+form{
+max-width:700px;
+margin:auto;
+}
+
+input,textarea{
+width:100%;
+padding:16px;
+margin-bottom:14px;
+border:none;
+border-radius:12px;
+background:#0f172a;
+color:white;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+z-index:999;
+}
+
+.modal-box{
+max-width:720px;
+margin:5% auto;
+background:#111827;
+padding:30px;
+border-radius:20px;
+}
+
+.close{
+float:right;
+font-size:28px;
+cursor:pointer;
+}
+
+.modal ul{
+margin:14px 0 18px 20px;
+line-height:1.8;
+}
+
+footer{
+padding:30px;
+text-align:center;
+color:#94a3b8;
+}
+
+@media(max-width:900px){
+.hero{
+grid-template-columns:1fr;
+padding:30px;
+}
+.hero h1{
+font-size:42px;
+}
+.section{
+padding:60px 25px;
+}
+nav{
+padding:18px 20px;
+flex-direction:column;
+gap:14px;
+}
+.metrics{
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob b1"></div>
+<div class="blob b2"></div>
+<div class="blob b3"></div>
+
+<nav>
+<div class="logo">Campus<span>Connect AI</span></div>
+<ul>
+<li><a href="#features">Features</a></li>
+<li><a href="#courses">Courses</a></li>
+<li><a href="#contact">Contact</a></li>
+<li><a href="#dashboard">Metrics</a></li>
+</ul>
+</nav>
+
+<section class="hero">
+
+<div>
+<h1>Grow Your Training Institute With AI</h1>
+<p>
+Automate student admissions, lead generation, WhatsApp support,
+college outreach and conversions through one intelligent platform.
+</p>
+
+<a href="#courses" class="btn">Explore Courses</a>
+<a href="#contact" class="btn2">Book Demo</a>
+
+<div class="metrics" id="dashboard">
+<div class="metric">
+<h2 id="leadCount">0</h2>
+<p>Live Leads</p>
+</div>
+
+<div class="metric">
+<h2 id="chatCount">0</h2>
+<p>Conversations</p>
+</div>
+
+<div class="metric">
+<h2>24/7</h2>
+<p>AI Active</p>
+</div>
+</div>
+</div>
+
+<div class="hero-right">
+<div class="glass">
+<h3>Admissions AI Bot</h3>
+<p>Instantly answers student questions on fees, timings and placements.</p>
+</div>
+
+<div class="glass">
+<h3>Lead CRM</h3>
+<p>Track inquiries from interested to joined status.</p>
+</div>
+
+<div class="glass">
+<h3>College Outreach</h3>
+<p>Run campaigns for colleges, HODs and placement cells.</p>
+</div>
+</div>
+
+</section>
+
+<!-- REPLACE YOUR EXISTING FEATURES SECTION WITH THIS -->
+
+<section class="section" id="features">
+
+<h2>Enterprise Features</h2>
+
+<p class="subtitle">
+Designed for training institutes, coaching centers and EdTech businesses that want scalable growth.
+</p>
+
+<div class="grid">
+
+<div class="card clickable" onclick="openFeature('chatbot')">
+<h3>AI Chatbot for Website + WhatsApp</h3>
+<p>Instant admissions support & lead capture.</p>
+</div>
+
+<div class="card clickable" onclick="openFeature('crm')">
+<h3>Lead Management Dashboard</h3>
+<p>Track all inquiries in one place.</p>
+</div>
+
+<div class="card clickable" onclick="openFeature('tracking')">
+<h3>Counselor Productivity Tracking</h3>
+<p>Measure team performance & conversions.</p>
+</div>
+
+<div class="card clickable" onclick="openFeature('followups')">
+<h3>Email + WhatsApp Followups</h3>
+<p>Automated nurturing campaigns.</p>
+</div>
+
+<div class="card clickable" onclick="openFeature('analytics')">
+<h3>Analytics & Reports</h3>
+<p>Daily metrics, ROI and dashboards.</p>
+</div>
+
+<div class="card clickable" onclick="openFeature('funnel')">
+<h3>Admissions Funnel Automation</h3>
+<p>From inquiry to enrollment automation.</p>
+</div>
+
+</div>
+</section>
+
+
+<!-- ADD THIS MODAL BELOW FOOTER -->
+
+<div class="modal" id="featureModal">
+<div class="modal-box">
+<span class="close" onclick="closeFeature()">&times;</span>
+
+<h2 id="fTitle"></h2>
+<p id="fDesc"></p>
+<ul id="fList"></ul>
+<p id="fResult"></p>
+
+</div>
+</div>
+
+
+<!-- ADD THIS CSS INSIDE STYLE TAG -->
+
+<style>
+.clickable{
+cursor:pointer;
+transition:.3s;
+}
+
+.clickable:hover{
+transform:translateY(-8px) scale(1.02);
+box-shadow:0 20px 40px rgba(37,99,235,.18);
+}
+</style>
+
+
+<!-- ADD THIS SCRIPT INSIDE YOUR EXISTING SCRIPT TAG -->
+
+<script>
+
+const featureData = {
+
+chatbot:{
+title:"AI Chatbot for Website + WhatsApp",
+desc:"Deploy an AI assistant that responds instantly to student questions and captures leads automatically.",
+list:[
+"Website live chat",
+"WhatsApp auto replies",
+"Course enquiry handling",
+"Lead capture forms",
+"24/7 support"
+],
+result:"Business Impact: Higher enquiry conversions and faster response time."
+},
+
+crm:{
+title:"Lead Management Dashboard",
+desc:"Centralized CRM to manage every student lead.",
+list:[
+"Lead stages",
+"Assign counselors",
+"Follow-up reminders",
+"Lead source tracking",
+"Joined / Lost status"
+],
+result:"Business Impact: No missed leads and better admissions management."
+},
+
+tracking:{
+title:"Counselor Productivity Tracking",
+desc:"Monitor staff performance and conversion efficiency.",
+list:[
+"Daily calls count",
+"Demo bookings",
+"Enrollments closed",
+"Team comparison",
+"Attendance logs"
+],
+result:"Business Impact: Higher counselor accountability and output."
+},
+
+followups:{
+title:"Email + WhatsApp Followups",
+desc:"Automate communication campaigns.",
+list:[
+"Welcome sequence",
+"Fee reminder",
+"Class launch updates",
+"Scholarship alerts",
+"Re-engagement campaigns"
+],
+result:"Business Impact: More conversions from warm leads."
+},
+
+analytics:{
+title:"Analytics & Reports",
+desc:"Visual dashboards for business decisions.",
+list:[
+"Daily lead count",
+"Conversion ratio",
+"Course demand trends",
+"Monthly revenue",
+"Marketing ROI"
+],
+result:"Business Impact: Smarter growth decisions with data."
+},
+
+funnel:{
+title:"Admissions Funnel Automation",
+desc:"Automate the complete student journey.",
+list:[
+"Lead capture",
+"Instant response",
+"Counselor assignment",
+"Payment reminders",
+"Enrollment confirmation"
+],
+result:"Business Impact: Faster admissions with less manual work."
+}
+
+};
+
+
+function openFeature(key){
+
+let f = featureData[key];
+
+document.getElementById("fTitle").innerText = f.title;
+document.getElementById("fDesc").innerText = f.desc;
+document.getElementById("fResult").innerText = f.result;
+
+let html = "";
+f.list.forEach(item=>{
+html += "<li>"+item+"</li>";
+});
+
+document.getElementById("fList").innerHTML = html;
+
+document.getElementById("featureModal").style.display="block";
+}
+
+function closeFeature(){
+document.getElementById("featureModal").style.display="none";
+}
+
+</script>
+
+<<!-- REPLACE the courses grid section with this expanded version -->
+
+<section class="section" id="courses">
+<h2>Trending Training Programs</h2>
+<p class="subtitle">
+Industry-ready programs aligned with current hiring demand, technology growth, and placement opportunities.
+</p>
+
+<div class="grid">
+
+<div class="course-card">
+<h3>Artificial Intelligence</h3>
+<p>ML, deep learning, NLP, computer vision.</p>
+<button class="btn" onclick="showCourse('ai')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Data Science</h3>
+<p>Python, analytics, statistics, dashboards.</p>
+<button class="btn" onclick="showCourse('ds')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Cyber Security</h3>
+<p>Ethical hacking, SOC, VAPT, security tools.</p>
+<button class="btn" onclick="showCourse('cyber')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Generative AI</h3>
+<p>LLMs, RAG, prompt engineering, AI agents.</p>
+<button class="btn" onclick="showCourse('genai')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Embedded Systems</h3>
+<p>IoT, firmware, microcontrollers, RTOS.</p>
+<button class="btn" onclick="showCourse('embed')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Cloud & DevOps</h3>
+<p>AWS, Docker, Kubernetes, CI/CD.</p>
+<button class="btn" onclick="showCourse('cloud')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Full Stack Development</h3>
+<p>Frontend, backend, databases, deployment.</p>
+<button class="btn" onclick="showCourse('fullstack')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Java Full Stack</h3>
+<p>Java, Spring Boot, React, SQL.</p>
+<button class="btn" onclick="showCourse('javafs')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Python Full Stack</h3>
+<p>Python, Django/FastAPI, React, MongoDB.</p>
+<button class="btn" onclick="showCourse('pythonfs')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>UI/UX Design</h3>
+<p>Figma, wireframes, product design systems.</p>
+<button class="btn" onclick="showCourse('uiux')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Digital Marketing</h3>
+<p>SEO, ads, growth funnels, branding.</p>
+<button class="btn" onclick="showCourse('marketing')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Blockchain & Web3</h3>
+<p>Smart contracts, Solidity, DApps.</p>
+<button class="btn" onclick="showCourse('blockchain')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Machine Learning Ops</h3>
+<p>Model deployment, pipelines, monitoring.</p>
+<button class="btn" onclick="showCourse('mlops')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Business Analytics</h3>
+<p>Excel, Power BI, SQL, KPI dashboards.</p>
+<button class="btn" onclick="showCourse('ba')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Mobile App Development</h3>
+<p>Flutter, React Native, Android basics.</p>
+<button class="btn" onclick="showCourse('mobile')">View Program</button>
+</div>
+
+<div class="course-card">
+<h3>Salesforce CRM</h3>
+<p>Admin, flows, CRM automation.</p>
+<button class="btn" onclick="showCourse('salesforce')">View Program</button>
+</div>
+
+</div>
+</section>
+
+<section class="section" id="contact">
+<h2>Book Consultation</h2>
+<p class="subtitle">
+Tell us your institute goals and we’ll help automate admissions growth.
+</p>
+
+<form onsubmit="submitLead(event)">
+<input type="text" id="name" placeholder="Your Name" required>
+<input type="email" id="email" placeholder="Email Address" required>
+<input type="text" id="phone" placeholder="Phone Number">
+<textarea id="msg" placeholder="Courses / Growth Requirement"></textarea>
+<button class="btn">Submit</button>
+</form>
+
+<p id="status" style="text-align:center;margin-top:15px;color:#06b6d4;"></p>
+</section>
+
+<footer>
+© 2026 CampusConnect AI • Built for Growth
+</footer>
+
+<div class="modal" id="modal">
+<div class="modal-box">
+<span class="close" onclick="closeModal()">&times;</span>
+<h2 id="title"></h2>
+<p id="desc"></p>
+<ul id="list"></ul>
+<p id="career"></p>
+</div>
+</div>
+
+<script>
+async function loadMetrics(){
+try{
+const res = await fetch('/analytics');
+const data = await res.json();
+document.getElementById('leadCount').innerText = data.contacts || 0;
+document.getElementById('chatCount').innerText = data.messages || 0;
+}catch(e){}
+}
+loadMetrics();
+
+async function submitLead(e){
+e.preventDefault();
+
+const payload={
+name:document.getElementById('name').value,
+phone:document.getElementById('phone').value,
+interest:document.getElementById('msg').value
+};
+
+try{
+await fetch('/contact',{
+method:'POST',
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify(payload)
+});
+document.getElementById('status').innerText='Request submitted successfully.';
+loadMetrics();
+}catch(err){
+document.getElementById('status').innerText='Submission failed.';
+}
+}
+
+const courses={
+ai:{title:'Artificial Intelligence',desc:'Build intelligent systems using modern AI.',list:['Python','Machine Learning','Deep Learning','NLP','Computer Vision'],career:'Career Roles: AI Engineer, ML Engineer'},
+ds:{title:'Data Science',desc:'Master analytics and business decisions.',list:['Python','Statistics','Pandas','Visualization','SQL'],career:'Career Roles: Data Analyst, Data Scientist'},
+cyber:{title:'Cyber Security',desc:'Protect systems and networks.',list:['Networking','Ethical Hacking','SOC','Pen Testing'],career:'Career Roles: Security Analyst'},
+genai:{title:'Generative AI',desc:'Work on next-gen AI tools.',list:['Prompt Engineering','RAG','AI Agents','LLMs'],career:'Career Roles: GenAI Engineer'},
+embed:{title:'Embedded Systems',desc:'Design smart hardware systems.',list:['C Programming','Microcontrollers','IoT','RTOS'],career:'Career Roles: Embedded Engineer'},
+cloud:{title:'Cloud & DevOps',desc:'Deploy scalable apps.',list:['AWS','Docker','CI/CD','Kubernetes'],career:'Career Roles: DevOps Engineer'},
+fullstack:{title:'Full Stack Development',desc:'Build complete web apps.',list:['HTML','CSS','JS','React','Node'],career:'Career Roles: Full Stack Developer'},
+javafs:{title:'Java Full Stack',desc:'Enterprise Java stack.',list:['Java','Spring Boot','React','SQL'],career:'Career Roles: Java Developer'},
+pythonfs:{title:'Python Full Stack',desc:'Modern Python web development.',list:['Python','Django','FastAPI','React'],career:'Career Roles: Python Developer'},
+uiux:{title:'UI/UX Design',desc:'Design digital products.',list:['Figma','Wireframes','Prototype'],career:'Career Roles: UI Designer'},
+marketing:{title:'Digital Marketing',desc:'Scale brands online.',list:['SEO','Google Ads','Funnels'],career:'Career Roles: Growth Marketer'},
+blockchain:{title:'Blockchain & Web3',desc:'Build decentralized apps.',list:['Blockchain','Solidity','DApps'],career:'Career Roles: Blockchain Developer'},
+mlops:{title:'Machine Learning Ops',desc:'Productionize ML systems.',list:['Docker','Pipelines','Monitoring'],career:'Career Roles: MLOps Engineer'},
+ba:{title:'Business Analytics',desc:'Drive decisions using data.',list:['Excel','Power BI','SQL'],career:'Career Roles: Business Analyst'},
+mobile:{title:'Mobile App Development',desc:'Build mobile apps.',list:['Flutter','React Native','Firebase'],career:'Career Roles: Mobile Developer'},
+salesforce:{title:'Salesforce CRM',desc:'Master enterprise CRM.',list:['Admin','Flows','Reports'],career:'Career Roles: Salesforce Admin'}
+};
+
+function showCourse(key){
+const c=courses[key];
+document.getElementById('title').innerText=c.title;
+document.getElementById('desc').innerText=c.desc;
+document.getElementById('career').innerText=c.career;
+
+let html='';
+c.list.forEach(i=>html += '<li>'+i+'</li>');
+document.getElementById('list').innerHTML=html;
+
+document.getElementById('modal').style.display='block';
+}
+
+function closeModal(){
+document.getElementById('modal').style.display='none';
+}
+</script>
+
+</body>
+</html>
