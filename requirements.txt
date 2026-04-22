@@ -3,4 +3,10 @@ uvicorn
 pymongo
 python-dotenv
 google-generativeai
+python-multipartfastapi
+uvicorn
+pymongo
+python-dotenv
+google-generativeai
 python-multipart
+twilio
