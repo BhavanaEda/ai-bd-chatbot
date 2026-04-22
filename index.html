@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>CampusConnect AI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 *{
@@ -273,6 +274,30 @@ background:rgba(0,0,0,.75);
 z-index:999;
 }
 
+.whatsapp-btn{
+position:fixed;
+bottom:28px;
+right:28px;
+width:72px;
+height:72px;
+border-radius:50%;
+background:#25D366;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+color:white;
+font-size:38px;
+box-shadow:0 12px 28px rgba(0,0,0,.28);
+z-index:9999;
+transition:.3s;
+}
+
+.whatsapp-btn:hover{
+transform:scale(1.12);
+box-shadow:0 16px 34px rgba(0,0,0,.35);
+}
+
 .modal-box{
 max-width:720px;
 margin:5% auto;
@@ -348,6 +373,13 @@ college outreach and conversions through one intelligent platform.
 
 <a href="#courses" class="btn">Explore Courses</a>
 <a href="#contact" class="btn2">Book Demo</a>
+<a href="https://wa.me/7569407166?text=Hi%20I%20want%20course%20details"
+class="whatsapp-btn"
+target="_blank">
+
+<i class="fab fa-whatsapp"></i>
+
+</a>
 
 <div class="metrics" id="dashboard">
 <div class="metric">

@@ -99,12 +99,12 @@ font-size:22px;
 <div class="metric-grid">
 
 <div class="metric-card">
-<h3 id="contacts">0</h3>
+<h3 id="totalLeads">0</h3>
 <p>Total Leads</p>
 </div>
 
 <div class="metric-card">
-<h3 id="messages">0</h3>
+<h3 id="totalMessages">0</h3>
 <p>Total Messages</p>
 </div>
 
@@ -136,6 +136,28 @@ font-size:22px;
 
 </section>
 
-<script src="dashboard.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="dashboard.js?v=4"></script>
+<script>
+async function loadDashboard(){
+
+try{
+const res = await fetch('/analytics');
+const data = await res.json();
+
+document.getElementById("totalLeads").innerText = data.contacts;
+document.getElementById("totalMessages").innerText = data.messages;
+
+document.getElementById("revenue").innerText =
+"₹" + (data.contacts * 30000).toLocaleString();
+
+}catch(err){
+console.log(err);
+}
+
+}
+
+loadDashboard();
+</script>
 </body>
 </html>
