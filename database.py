@@ -8,9 +8,6 @@ uri = os.getenv("MONGO_URI")
 
 client = MongoClient(uri)
 
-# Test connection
-client.admin.command("ping")
-
 db = client["ai_bd_chatbot"]
 
 contacts_col = db["contacts"]
