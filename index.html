@@ -235,6 +235,17 @@ margin-bottom:12px;
 color:#8b5cf6;
 }
 
+.course-link{
+color:#38bdf8;
+text-decoration:none;
+font-weight:600;
+}
+
+.course-link:hover{
+color:#22c55e;
+text-decoration:underline;
+}
+
 .course-card p{
 color:#cbd5e1;
 line-height:1.6;
@@ -669,46 +680,11 @@ Industry-ready programs aligned with current hiring demand, technology growth, a
 <button class="btn" onclick="showCourse('pythonfs')">View Program</button>
 </div>
 
-<div class="course-card">
-<h3>UI/UX Design</h3>
-<p>Figma, wireframes, product design systems.</p>
-<button class="btn" onclick="showCourse('uiux')">View Program</button>
-</div>
-
-<div class="course-card">
-<h3>Digital Marketing</h3>
-<p>SEO, ads, growth funnels, branding.</p>
-<button class="btn" onclick="showCourse('marketing')">View Program</button>
-</div>
 
 <div class="course-card">
 <h3>Blockchain & Web3</h3>
 <p>Smart contracts, Solidity, DApps.</p>
 <button class="btn" onclick="showCourse('blockchain')">View Program</button>
-</div>
-
-<div class="course-card">
-<h3>Machine Learning Ops</h3>
-<p>Model deployment, pipelines, monitoring.</p>
-<button class="btn" onclick="showCourse('mlops')">View Program</button>
-</div>
-
-<div class="course-card">
-<h3>Business Analytics</h3>
-<p>Excel, Power BI, SQL, KPI dashboards.</p>
-<button class="btn" onclick="showCourse('ba')">View Program</button>
-</div>
-
-<div class="course-card">
-<h3>Mobile App Development</h3>
-<p>Flutter, React Native, Android basics.</p>
-<button class="btn" onclick="showCourse('mobile')">View Program</button>
-</div>
-
-<div class="course-card">
-<h3>Salesforce CRM</h3>
-<p>Admin, flows, CRM automation.</p>
-<button class="btn" onclick="showCourse('salesforce')">View Program</button>
 </div>
 
 </div>
@@ -744,7 +720,7 @@ Tell us your institute goals and we’ll help automate admissions growth.
 <p id="career"></p>
 </div>
 </div>
-
+<script src="dashboard.js"></script>
 <script>
 async function loadMetrics(){
 try{
